@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Word Knowledge Quiz</title>
+<style>
+body{font-family:Arial, sans-serif;background:#0f1316;color:#fff;margin:0;padding:20px}
+.container{max-width:700px;margin:auto;background:#151b20;padding:20px;border-radius:12px}
+h1{text-align:center}
+.question{margin:15px 0}
+button{padding:10px 15px;border:none;border-radius:8px;background:#7CFFB2;font-weight:bold}
+#timer{font-weight:bold;color:#7CFFB2;text-align:center}
+</style>
+</head>
+
+<body>
+<div class="container">
+<h1>Word Knowledge Test</h1>
+<p id="timer">Time left: 3:00</p>
+
+<form id="quiz">
+
+<div class="question">
+1. The word <b>Acquire</b> most nearly means:
+<br><input type="radio" name="q1" value="a"> Lose
+<br><input type="radio" name="q1" value="b"> Obtain
+<br><input type="radio" name="q1" value="c"> Destroy
+</div>
+
+<div class="question">
+2. The word <b>Rapid</b> most nearly means:
+<br><input type="radio" name="q2" value="a"> Slow
+<br><input type="radio" name="q2" value="b"> Quick
+<br><input type="radio" name="q2" value="c"> Weak
+</div>
+
+<div class="question">
+3. The word <b>Assist</b> most nearly means:
+<br><input type="radio" name="q3" value="a"> Help
+<br><input type="radio" name="q3" value="b"> Ignore
+<br><input type="radio" name="q3" value="c"> Refuse
+</div>
+
+<br>
+<button type="button" onclick="submitQuiz()">Submit Test</button>
+</form>
+
+<p id="result"></p>
+</div>
+
+<script>
+let time = 180;
+let timer = setInterval(function(){
+  time--;
+  let m = Math.floor(time/60);
+  let s = time%60;
+  document.getElementById("timer").innerHTML =
+    "Time left: " + m + ":" + (s<10?"0":"") + s;
+  if(time<=0){
+    clearInterval(timer);
+    submitQuiz();
+  }
+},1000);
+
+function submitQuiz(){
+  clearInterval(timer);
+  let score = 0;
+  if(document.querySelector('input[name="q1"]:checked')?.value==="b") score++;
+  if(document.querySelector('input[name="q2"]:checked')?.value==="b") score++;
+  if(document.querySelector('input[name="q3"]:checked')?.value==="a") score++;
+
+  document.getElementById("result").innerHTML =
+    "Your Score: " + score + " / 3";
+}
+</script>
+</body>
+</html>
